@@ -1,11 +1,9 @@
 from googletrans import Translator
 
-
 translator = Translator()
-
-result = translator.translate('hi', dest = 'uz').text
-
+result = translator.translate('hi', dest='uz').text
 print(result)
+
 
 
 while True:
