@@ -11,6 +11,7 @@ trns = Translator()
 
 
 
+
 db = sqlite3.connect('dat.db')
 sql = db.cursor()
 
@@ -20,13 +21,23 @@ TOKEN = '6618391908:AAGdqdaDpxdBbLNnWAnveiS9NFPE3RSbmSw'
 
 bot = telebot.TeleBot(TOKEN)
 
+
+
+bot.set_my_commands(
+    commands=[
+        telebot.types.BotCommand('/start', 'Botni ishga tushurish uchun'),
+        telebot.types.BotCommand('/help','yordam tugmasi'),
+    ]
+)
+
+
 @bot.message_handler(commands=['start'])
 def start(message):
 
     USERS = database.check_user(message.from_user.id)
     print(USERS)
     if USERS:
-        bot.send_message(message.from_user.id,'TO start translate, user')
+        bot.send_message(message.from_user.id,'TO start translate, user', reply_markup=buttons.translate_button())
 
     else:
         bot.send_message(message.from_user.id, 'To start the bot, share your contact', reply_markup=buttons.contact_button())
